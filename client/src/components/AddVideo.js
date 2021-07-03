@@ -5,15 +5,35 @@ const AddVideo = ({ data, setData }) => {
     const [title, setTitle] = useState("");
     const [url, setUrl] = useState("");
 
-    const handleAdd = (e) => {
-        const videoId = Math.floor(Math.random() * 100000);
-        const newVideo = {
-            id: videoId,
-            title: title,
-            url: url,
-            rating: 0
-        };
-        setData(data.concat(newVideo));
+    // const handleAdd = (e) => {
+    //     const videoId = Math.floor(Math.random() * 100000);
+    //     const newVideo = {
+    //         id: videoId,
+    //         title: title,
+    //         url: url,
+    //         rating: 0
+    //     };
+    //     setData(data.concat(newVideo));
+    //     setTitle("");
+    //     setUrl("");
+    // }
+
+    const handleAdd = async (e) => {
+        e.preventDefault();
+        try {
+            const newVideo = {
+                title: title,
+                url: url,
+                rating: 0
+            };
+            await fetch("http://localhost:5000", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newVideo)
+            });
+        } catch (error) {
+            console.error(error.message);
+        }
         setTitle("");
         setUrl("");
     }

@@ -12,11 +12,12 @@ const App = () => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
+    // fetch("https://askin-full-stack-project-db.herokuapp.com")
     fetch("http://localhost:5000")
       .then((res) => res.json())
       .then((data) => setData(data))
       .catch((error) => console.log(error))
-  }, []);
+  }, [data]);
 
   return (
     <div className="App">
